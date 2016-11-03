@@ -1,0 +1,40 @@
+buildscript {
+	ext {
+		springBootVersion = '1.4.1.RELEASE'
+	}
+	repositories {
+		mavenCentral()
+	}
+	dependencies {
+		classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}")
+	}
+}
+
+apply plugin: 'java'
+apply plugin: 'eclipse'
+apply plugin: 'spring-boot'
+
+jar {
+	baseName = 'testboot'
+	version = '0.0.1-SNAPSHOT'
+}
+sourceCompatibility = 1.8
+targetCompatibility = 1.8
+
+repositories {
+	mavenCentral()
+}
+
+
+dependencies {
+	compile('org.springframework.boot:spring-boot-starter-web')
+	compile("org.thymeleaf:thymeleaf-spring4")
+	compile("nz.net.ultraq.thymeleaf:thymeleaf-layout-dialect")
+	testCompile('org.springframework.boot:spring-boot-starter-test')
+
+}
+
+task npmStart(type: Exec) {
+    commandLine "npm", "start"
+	workingDir "${project.basedir}/src/main/resources/static"
+}
